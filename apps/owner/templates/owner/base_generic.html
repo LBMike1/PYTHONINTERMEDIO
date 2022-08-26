@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Pokemons</title>{% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static '../static/css/styles.css'%}">
+</head>
+<body>
+    <h1 class="title">Gestor de owners</h1>
+<!--    Se tiene que indicar el bloque en la plantilla donde va a ser dinámico mis datos-->
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

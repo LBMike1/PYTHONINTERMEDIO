@@ -1,0 +1,89 @@
+{% extends "owner/base_generic.html"  %}
+
+{% block content %}
+<div>
+    <h1><a href="https://unmsm.edu.pe"><strong>U.N.M.S.M.</strong></a></h1>
+</div>
+<div>
+
+     <p>Lista de owners!!</p>
+    <h2>My first owner!!</h2>
+    <h1>Nombre de Owner: <em>{{ nombre_owner }}</em></h1>
+    <h1>Edad:<em> {{ edad }}</em></h1>
+    <h1>País:<em> {{ pais }}</em></h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi corporis debitis dolor dolore,
+        dolorum ducimus ea, necessitatibus non vel vero voluptates, voluptatibus! Architecto culpa explicabo fugiat nobis saepe. Minima!
+    </p>
+
+    {% if nombre_owner %}
+        <h2>Existe un owner en mi aplicativo!!</h2>
+    {% endif %}
+
+    {% if edad < 18 %}
+        <h3>El woner {{ nombre_owner }} es MENOR de edad</h3>
+    {% else %}
+        <h3>El woner {{ nombre_owner }} es MAYOR de edad</h3>
+    {%  endif %}
+
+    {%  if not vigente %}
+        <h1>¡Su pase ya no está vigente!</h1>
+    {%  endif %}
+
+    {%  if edad and nombre_owner %}
+        <h1> Existe un owner en la plataforma</h1>
+    {%  endif %}
+
+    {% if nombre_owner %}
+        {% if edad or vigente%}
+            <h2>Tenemos un owner con pase no vigente</h2>
+        {% endif %}
+    {% endif %}
+
+    <ul>
+        {% for pokemon in pokemones %}
+            <li>
+                <p class="item">{{ pokemon.nombre_pokemon }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for pokemon in pokemones reversed %}
+            <li>
+                <p class="item">{{ pokemon.nombre_pokemon }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% for pokemon in pokemones  %}
+        <h1>{{pokemon.nombre_pokemon}}</h1>
+        <ul>
+            {% for ataque in pokemon.ataques %}
+                <li>{{ ataque }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
+    {% for pokemon in pokemones  %}
+        {{pokemon.nombre_pokemon}}
+        <table>
+            {% for ataque in pokemon.ataques %}
+                <tr>
+                    <td>{{ ataque }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+
+    {# {% ifequal nombre_owner 'Susana' %} #}
+    {#    <h3>El owner tiene 18 años</h3> #}
+    {# {% endifequal %} #}
+
+    <h1>Aplicando filtros</h1>
+    <h2>{{ nombre_owner|lower }}</h2>
+
+    <h2>La cantidad de pokemones que tienes actualmente es: {{pokemones|length}}</h2>
+</div>
+<p>Hi Owner!!!</p>
+<p>It works!!</p>
+{% endblock %}

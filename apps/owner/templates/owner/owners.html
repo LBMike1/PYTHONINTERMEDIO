@@ -1,0 +1,16 @@
+{% extends "owner/base_generic.html"  %}
+
+{% block content %}
+
+<div>
+    <p>Owner de la Base de Datos</p>
+    <ul>
+        {% for owner in data %}
+
+            <li>
+                <p class="item">{{ owner.nombre }} tiene {{owner.edad }} años y es de {{owner.pais}}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
