@@ -1,0 +1,16 @@
+{% extends "owner/base_generic.html"  %}
+
+{% block content %}
+<div class="card-body">
+    <h4>Crear nuevo Owner</h4>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+<!--        <a href=""></a>-->
+        <a type="button" class="btn btn-danger" href="{% url 'owner_list' %}">Cancelar</a>
+        <button type="submit" class="btn btn-success">Crear Owner</button>
+    </form>
+</div>
+{% endblock %}

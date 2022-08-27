@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from apps.owner.forms import OwnerForm
 from apps.owner.models import Owner
 
 from django.db.models import Q, F
@@ -25,8 +27,8 @@ def owner_list(request):
     #                 }
 
     """Crear un objeto en la Base de Datos"""
-    #p = Owner(nombre="Rousmery", edad=37)
-    #p.save()
+    p = Owner(nombre="Rousmery", edad=37)
+    p.save()
 
     #p.nombre = "Karla"
     #p.save()
@@ -125,3 +127,19 @@ def owner_search(request):
     data_context = Owner.objects.filter(results).distinct()
 
     return render(request, 'owner/owner_search.html', context={'data': data_context, "query": query})
+
+
+def owner_create(request):
+    if request.method == "POST":
+        form = OwnerForm(request.POST)
+        if form.is_valid():
+            """Guarda todos los campos que vienen desde la plantilla"""
+            try:
+                form.save()
+                return redirect('owner_list')
+            except:
+                pass
+    else:
+        form = OwnerForm()
+
+    return render(request, 'owner/owner-create.html', {'form': form})
