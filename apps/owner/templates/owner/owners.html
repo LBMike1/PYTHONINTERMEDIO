@@ -3,15 +3,21 @@
 {% block content %}
 
 <div>
-    <p>Owner de la Base de Datos</p>
-    <ul>
-        {% for owner in data %}
-
-            <li>
-                <p class="item">{{ owner.nombre }} tiene {{owner.edad }} años y es de {{owner.pais}}</p>
-            </li>
-        {% endfor %}
-    </ul>
+    <p>Lita de Owner registrado</p>
     <a type="button" class="btn btn-success" href="{% url 'owner_create'%}">Crear Owner</a>
+    <form method="post">
+        <ul>
+            {% for owner in data %}
+
+                <li>
+    <!--                <p>{{ owner.id }}</p>-->
+                    <p class="item">{{ owner.nombre }} tiene {{owner.edad }} años y es de {{owner.pais}}</p>
+
+                    <a type="button" class="btn btn-danger" href="{% url 'owner_delete' owner.id %}">Eliminar Owner</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </form>
+
 </div>
 {% endblock %}

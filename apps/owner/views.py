@@ -27,8 +27,8 @@ def owner_list(request):
     #                 }
 
     """Crear un objeto en la Base de Datos"""
-    p = Owner(nombre="Rousmery", edad=37)
-    p.save()
+    #p = Owner(nombre="Rousmery", edad=37)
+    #p.save()
 
     #p.nombre = "Karla"
     #p.save()
@@ -96,7 +96,7 @@ def owner_list(request):
     "Negar Q"
     #query = Q(pais__startswith='Pe') & ~Q(edad=37)
 
-    print("Query: {}".format(query))
+    #print("Query: {}".format(query))
     # Query
 
     #data_context = Owner.objects.filter(query)
@@ -134,6 +134,10 @@ def owner_create(request):
         form = OwnerForm(request.POST)
         if form.is_valid():
             """Guarda todos los campos que vienen desde la plantilla"""
+            # nombre = form.cleaned_data['nombre']
+            # print("Nombre: {}".format(nombre))
+            # edad = form.cleaned_data['edad']
+            # pais = form.cleaned_data['pais']
             try:
                 form.save()
                 return redirect('owner_list')
@@ -143,3 +147,11 @@ def owner_create(request):
         form = OwnerForm()
 
     return render(request, 'owner/owner-create.html', {'form': form})
+
+
+def owner_delete(request, id):
+
+    owner = Owner.objects.get(id=id)
+    owner.delete()
+
+    return redirect('owner_list')
