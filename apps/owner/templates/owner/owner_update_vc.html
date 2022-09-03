@@ -1,0 +1,15 @@
+{% extends "owner/base_generic.html"  %}
+
+{% block content %}
+<div class="card-body">
+    <h4>Editar Owner con Vistas basada en Clases</h4>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <a type="button" class="btn btn-danger" href="{% url 'owner_list_vc' %}">Cancelar</a>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+{% endblock %}

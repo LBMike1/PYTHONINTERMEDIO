@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 
 from apps.owner.forms import OwnerForm
 from apps.owner.models import Owner
 
 from django.db.models import Q, F
+
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 
 def owner_list(request):
@@ -78,14 +81,14 @@ def owner_list(request):
 
     """Actualización de datos en la BD a un cierto un grupo de datos"""
 
-    Owner.objects.filter(pais__startswith="Bra").update(edad=17)
+    #Owner.objects.filter(pais__startswith="Bra").update(edad=17)
 
     """Concatenar consultas"""
     #data_context = Owner.objects.filter(nombre="Karla").order_by("-edad")
 
     """Utilizando F expressions"""
 
-    Owner.objects.filter(edad__gte=17).update(edad=F('edad') + 10)
+    #Owner.objects.filter(edad__gte=17).update(edad=F('edad') + 10)
 
     #data_context = Owner.objects.get(nombre="Karla")
 
@@ -150,8 +153,50 @@ def owner_create(request):
 
 
 def owner_delete(request, id):
-
     owner = Owner.objects.get(id=id)
     owner.delete()
-
     return redirect('owner_list')
+
+
+def owner_edit(request, id):
+    owner = Owner.objects.get(id=id)
+    form = OwnerForm(initial={'nombre': owner.nombre, 'edad': owner.edad, 'pais': owner.pais})
+
+    if request.method == 'POST':
+        form = OwnerForm(request.POST, instance=owner)
+        if form.is_valid():
+            try:
+                form.save()
+                return redirect('owner_list')
+            except:
+                pass
+    return render(request, 'owner/owner_update.html', {'form': form})
+
+
+""" Vistas basadas en clases """
+""" ListView, CreateView, UpdateView, DeleteView """
+
+
+class OwnerList(ListView):
+    model = Owner
+    template_name = 'owner/owner_vc.html'
+
+
+class OwnerCreate(CreateView):
+    model = Owner
+    form_class = OwnerForm
+    template_name = 'owner/owner-create.html'
+    success_url = reverse_lazy('owner_list_vc')
+
+
+class OwnerUpdate(UpdateView):
+    model = Owner
+    form_class = OwnerForm
+    template_name = 'owner/owner_update_vc.html'
+    success_url = reverse_lazy('owner_list_vc')
+
+
+class OwnerDelete(DeleteView):
+    model = Owner
+    template_name = 'owner/owner-confirm-delete.html'
+    success_url = reverse_lazy('owner_list_vc')
