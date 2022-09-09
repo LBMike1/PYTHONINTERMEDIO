@@ -2,12 +2,6 @@
 * Python 3.8+
 * Django > 4
 
-#### Instalar requerimientos
-```
-pipenv install
-pipenv install --dev
-```
-
 #### Configuracion
 ```
 Nota: Cambiar <django_project> por `pokemon` en cada paso de este documento
