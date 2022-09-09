@@ -224,6 +224,9 @@ def ListOwnerSerializer(request):
     return HttpResponse(lista, content_type='application/json')
 
 
+"""Vistas creadas con Django Rest Framework"""
+
+
 class OwnerApiView(ListAPIView):
     queryset = Owner.objects.all()
     serializer_class = OwnerSerializer
@@ -248,8 +251,8 @@ def owner_api_view(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
             #return Response('Owner ha sido creado correctamente', status=status.HTTP_201_CREATED)
-        return Response(serializer.errors)
-        #return Response(serializers_class.errors, status=status.HTTP_400_BAD_REQUEST)
+        #return Response(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -278,4 +281,4 @@ def owner_detail_view(request, pk):
             return Response('Owner se la eliminado correctamente', status=status.HTTP_201_CREATED)
             #return Response({'message':'Owner se la eliminado correctamente'})
 
-    #return Response({'message': 'No se ha encontrado ningún owner con estos datos'}, status = status.HTTP_400_BAD_REQUEST)
+    return Response({'message': 'No se ha encontrado ningún owner con estos datos'}, status = status.HTTP_400_BAD_REQUEST)
