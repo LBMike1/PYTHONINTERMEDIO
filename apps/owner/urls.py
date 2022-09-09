@@ -15,5 +15,14 @@ urlpatterns = [
      path('owner_create_vc/', views.OwnerCreate.as_view(), name='owner_create_vc'),
      path('edit_owner_vc/(?P<pk>[0-9]+)/$', views.OwnerUpdate.as_view(), name='owner_edit_vc'),
      path('delete_owner_vc/(?P<pk>[0-9]+)/$', views.OwnerDelete.as_view(), name='owner_delete_vc'),
+
+     # URL serializador
+     path('owner_list_serializer/', views.ListOwnerSerializer, name="owner_lis_srr"),
+
+     # URLs DJANGORESTFRAMEWORK
+     path('owner_list_drf/', views.OwnerApiView.as_view(), name='owner_list_drf'),
+
+     path('owner_list_drf_def/', views.owner_api_view, name='owner_list_rf_def'),
+     path('owner_detail_drf_def/<int:pk>/', views.owner_detail_view, name='owner_detail_rf_def'),
 ]
 
