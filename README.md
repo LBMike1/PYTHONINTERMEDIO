@@ -1,16 +1,13 @@
 ### Requerimientos
-* Python 3.8+
-* Django > 4
+```
+pip install requirements.txt
+
+Nota: Cambiar <django_project> por `pokemon` en cada paso de este documento
+```
 
 #### Configuracion
 ```
 Nota: Cambiar <django_project> por `pokemon` en cada paso de este documento
-```
-
-* Crear el archivo de configuracion de django segun ambiente de despliegue
-```
-cd <django_project>/settings/
-cp -a local_settings.py.example local.py
 ```
 
 #### Crear las tablas en nuestra BD de nuestras apps
